@@ -16,7 +16,7 @@
 {% set data = data.to_dict() %}
 <div id="lookup-result" style="margin-top:30px;">
     {% if data | has_actor_type %}
-<div style="margin-left:95px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+<div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;">
 {% if following %}
 <a class="bar-item" href="/admin/profile?actor_id={{data.id}}">profile</a>
 <form action="/api/undo" class="action-form"  method="post">
@@ -51,11 +51,11 @@
 	{{ utils.display_note(data, meta=meta) }}
     {% elif data | has_type('Announce') %}
     {% set boost_actor = meta.actor %}
-        <p style="margin-left:65px;padding-bottom:5px;">
+        <p style="margin-left:0px;padding-bottom:0px;">
         <span class="bar-item-no-hover"><a style="color:#808080;" href="{{ boost_actor.url | get_url }}">{{ boost_actor.name }}</a> boosted</span>
         </p>
         {{ utils.display_note(meta.object, meta=meta) }}
- 
+
     {% endif %}
 </div>
 {% endif %}

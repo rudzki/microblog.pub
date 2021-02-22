@@ -39,7 +39,7 @@
 <div style="clear:both;padding-top:30px;">
 
 {% for member in l.members %}
-<div style="margin-left:90px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+<div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;">
 <form action="/api/remove_from_list" class="action-form"  method="post">
 <input type="hidden" name="redirect" value="{{ request.path }}"/>
 <input type="hidden" name="actor_id" value="{{ member }}"/>

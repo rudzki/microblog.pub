@@ -24,7 +24,7 @@
 {% set actor_redir = request.path + "?actor_id=" + request.args.get('actor_id') %}
 
 <div id="profile" style="margin-bottom:80px;">
-<div style="clear:both;margin-left:100px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+<div style="clear:both;margin-left:0px;margin-bottom:10px;margin-top:10px;display:inline-block;">
     {% if follower %}<span class="bar-item-no-hover">follows you!</span>{% endif %}
 
 {% if following %}
@@ -71,7 +71,7 @@
 
 {% endif %}
 {% endfor %}
- 
+
 
 
 
@@ -130,7 +130,7 @@
 	{% for item in inbox_data %}
 	{% if 'actor' in item.meta %}
 	{% if item | has_type('Create') %}
-    <div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+    <div style="margin-left:0px;margin-bottom:10px;margin-top:10px;display:inline-block;">
     {% if request.path.startswith("/admin/notifications") and not item.meta.reply_acked and item.meta.object_visibility | visibility_is_public %}
     <form action="/api/ack_reply" class="action-form"  method="POST">
     <input type="hidden" name="redirect" value="{{ request.path }}"/>
@@ -138,7 +138,7 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <button type="submit" class="bar-item">ack reply</button>
     </form>
-	
+
     {% endif %}
     {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
     </div>
@@ -147,8 +147,8 @@
 	{% if item | has_type('Announce') %}
 	{% set boost_actor = item.meta.actor %}
     {% if boost_actor %}
-    <div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
-    {{ utils.display_actor_box(boost_actor, after="boosted") }} 
+    <div style="margin-left:0px;margin-bottom:10px;margin-top:10px;display:inline-block;">
+    {{ utils.display_actor_box(boost_actor, after="boosted") }}
     {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
 
     {% if request.path == url_for('admin.admin_notifications') %}
@@ -166,8 +166,8 @@
 
     {% if item | has_type('Like') %}
     {% set boost_actor = item.meta.actor %}
-    <div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
-    {{ utils.display_actor_box(boost_actor, after="liked") }} 
+    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
+    {{ utils.display_actor_box(boost_actor, after="liked") }}
     {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
     <span class="bar-item-no-bg">{{ (item.activity.published or item.meta.published) | format_timeago }}</span>
@@ -176,9 +176,9 @@
     {{ utils.display_note(item.meta.object, meta=item.meta) }}
 	{% endif %}
     {% endif %}
-	
+
 	{% if item | has_type('Follow') %}
-    <div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
     <span class="bar-item-no-hover">new follower</span>
     <span class="bar-item-no-hover">{{ item.meta.follow_status }}</span>
     {% if config.MANUALLY_APPROVES_FOLLOWERS and item.meta.follow_status != "accepted"  %}
@@ -207,33 +207,33 @@
     </div>
 
 	{% elif item | has_type('Accept') %}
-    <div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
     <span class="bar-item-no-hover">you started following</span>
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
     <span class="bar-item-no-bg">{{ (item.activity.published or item.meta.published) | format_timeago }}</span>
     <a class="bar-item" href="/admin/profile?actor_id={{item.meta.actor_id}}">profile</a>
     {% if item.meta.notification_follows_back %}<span class="bar-item-no-hover">follows you back</span>{% endif %}
     </div>
-    
+
     <div style="height: 100px;">
 	{{ utils.display_actor_inline(item.meta.actor, size=50) }}
     </div>
 
 	{% elif item | has_type('Reject') %}
-    <div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
     <span class="bar-item-no-hover">rejected your follow request</span>
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
     <span class="bar-item-no-bg">{{ (item.activity.published or item.meta.published) | format_timeago }}</span>
     <a class="bar-item" href="/admin/profile?actor_id={{item.meta.actor_id}}">profile</a>
     {% if item.meta.notification_follows_back %}<span class="bar-item-no-hover">follows you</span>{% endif %}
     </div>
-    
+
     <div style="height: 100px;">
 	{{ utils.display_actor_inline(item.meta.actor, size=50) }}
     </div>
 
 	{% elif item | has_type('Undo') %}
-    <div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
     <span class="bar-item-no-hover">unfollowed you</span>
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
     <span class="bar-item-no-bg">{{ (item.activity.published or item.meta.published) | format_timeago }}</span>
@@ -245,13 +245,13 @@
 	{% else %}
 
 	{% endif %}
-	
-	
+
+
 	{% endif %}
     {% else %}
 
     {% if item | has_type('question_ended') %}
-    <p style="margin-left:70px;padding-bottom:5px;display:inline-block;"><span class="bar-item-no-hover">poll ended</span></p>
+    <p style="margin-left:0px;padding-bottom:0px;display:inline-block;"><span class="bar-item-no-hover">poll ended</span></p>
     {{ utils.display_note(item.activity, meta={"object_visibility": "PUBLIC"}) }}
     {% endif %}
 

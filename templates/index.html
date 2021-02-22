@@ -3,15 +3,15 @@
 {% block header %}
 <link rel="self" href="{{ config.ID }}/">
 <link rel="hub" href="https://pubsubhubbub.superfeedr.com/">
-<meta content="profile" property="og:type" />       
+<meta content="profile" property="og:type" />
 <meta content="{{ config.ID }}" property="og:url" />
-<meta content="{{ config.USERNAME }}" property="og:site_name" />                                         
-<meta content="{{ config.USERNAME }}" property="og:title" />                                             
-<meta content="{{ me.summary | html2plaintext | trim }}" property="og:description" />                                            
-<meta content="{{ me.icon.url }}" property="og:image" />                                                 
-<meta content="200" property="og:image:width" />    
-<meta content="200" property="og:image:height" />   
-<meta content="summary" property="twitter:card" />  
+<meta content="{{ config.USERNAME }}" property="og:site_name" />
+<meta content="{{ config.USERNAME }}" property="og:title" />
+<meta content="{{ me.summary | html2plaintext | trim }}" property="og:description" />
+<meta content="{{ me.icon.url }}" property="og:image" />
+<meta content="200" property="og:image:width" />
+<meta content="200" property="og:image:height" />
+<meta content="summary" property="twitter:card" />
 <meta content="{{config.USERNAME}}@{{ config.DOMAIN}}" property="profile:username" />
 {% endblock %}
 {% block content %}
@@ -23,33 +23,33 @@
 <main id="notes">
 	{% for item in pinned %}
     {% if item.meta.pinned %}
-    <p style="margin-left:65px;padding-bottom:5px;">
+    <p style="margin-left:0;padding-bottom:5px;">
     <span class="bar-item-pinned">pinned</span>
     </p>
     {% endif %}
 
     {{ utils.display_note(item.activity.object, meta=item.meta, no_color=True) }}
     {% endfor %}
-   
+
 	{% for item in outbox_data %}
 
 	{% if item | has_type('Announce') %}
 	{% if "actor" in item.meta %}
         {% set boost_actor = item.meta.actor %}
         {% if session.logged_in %}
-        <div style="margin-left:65px;padding-bottom:5px;margin-bottom:15px;display:inline-block">
+        <div style="margin-left:0px;padding-bottom:5px;margin-bottom:15px;display:inline-block">
 <form action="/api/undo" class="action-form"  method="POST">
 <input type="hidden" name="redirect" value="/"/>
 <input type="hidden" name="id" value="{{ item.remote_id }}"/>
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-<button type="submit" class="bar-item">unboost</button>
+<button type="submit" class="bar-item boost-label">unboost</button>
 </form>
-        {{ utils.display_actor_box(boost_actor, after="boosted") }} 
+        {{ utils.display_actor_box(boost_actor, after="boosted") }}
         {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
         </div>
         {% else %}
-        <p style="margin-left:65px;padding-bottom:5px;display:inline-block;">
-        {{ utils.display_actor_box(boost_actor, after="boosted") }} 
+        <p style="margin-left:0px;padding-bottom:5px;display:inline-block;">
+        {{ utils.display_actor_box(boost_actor, after="boosted") }}
         {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
         </p>
         {% endif %}
@@ -59,7 +59,7 @@
         {% endif %}
 	{% elif item | has_type('Create') %}
         {% if item.activity.object.inReplyTo %}
-        <p style="margin-left:65px;padding-bottom:5px;display:inline-block;">
+        <p style="margin-left:0px;padding-bottom:5px;display:inline-block;">
         {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
         </p>
         {% endif %}

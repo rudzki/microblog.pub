@@ -17,11 +17,11 @@
 
 {% macro display_actor_icon(follower, size=50) -%}
 {% if follower and follower.id %}
-<a href="{{follower | url_or_id | get_url }}" style="width:65px;padding-left:15px;padding-bottom:15px;text-decoration:none;padding:0;margin:0;height:65px;">
+<a href="{{follower | url_or_id | get_url }}" style="width:65px;padding-left:15px;padding-bottom:10px;text-decoration:none;padding:0;margin:0;height:65px;">
 {% if not follower.icon %}
-<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="/static/nopic.png" style="width:{{ size }}px;border-radius:2px;margin:0;padding:0">
+<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="/static/nopic.png" style="width:{{ size }}px;margin:0;padding:0">
 {% else %}
-<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="{{ follower.icon.url | get_actor_icon_url(size) }}" style="width:{{ size }}px;border-radius:2px;">{% endif %}
+<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="{{ follower.icon.url | get_actor_icon_url(size) }}" style="width:{{ size }}px;">{% endif %}
 </a>
 {% endif %}
 {%- endmacro %}
@@ -45,8 +45,8 @@
 {% set icon_url = actor.icon.url | get_actor_icon_url(50) %}
 {% endif %}
 
-        <span class="bar-item-no-hover" style="padding:0;">
-            <span style="display:flex;height:30px;line-height:30px;background: url('{{ icon_url }}') no-repeat;background-size:30px;border-top-left-radius: 2px;border-bottom-left-radius: 2px;">
+        <span class="bar-item-no-hover" style="padding: 0;">
+            <span style="font-size:80%;display:flex;height:25px;line-height:25px;background: url('{{ icon_url }}') no-repeat;background-size:25px;">
                 {% if before and before_url %}
                 <span style="flex-shrink:1; padding:0 10px 0 40px;"><a href="{{before_url}}">{{before}}</a></span>
                 <span style="flex-shrink:1;padding-right:10px;">
@@ -57,7 +57,7 @@
                 <span style="flex-shrink:1;padding-left:40px;">
                 <a style="color:#808080;" href="{{ actor.url | get_url }}">{{ ( actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</a>
                 </span>
-                <span style="flex-shrink:1;padding:0 10px;">{{ after }}</span>
+                <span style="flex-shrink:1;padding:0 5px;">{{ after }}</span>
                 {% endif %}
             </span>
         </span>
@@ -107,9 +107,11 @@
 
 <div class="note-wrapper">
     <aside style="clear:both;height:20px;">
+
 	<a href="{{ actor | url_or_id | get_url }}" style="margin:0;text-decoration:none;margin: 0;text-decoration: none;display: block;width: 75%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: left;" class="no-hover">
         <strong>{{ (actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</strong>
         <span class="l">@{% if not no_color and obj.id | is_from_outbox %}<span class="pcolor">{{ actor.preferredUsername | clean | replace_custom_emojis(actor) | safe }}</span>{% else %}{{ actor.preferredUsername | clean | replace_custom_emojis(actor) | safe }}{% endif %}@{% if not no_color and obj.id | is_from_outbox %}<span class="pcolor">{{ actor | url_or_id | get_url | domain }}</span>{% else %}{{ actor | url_or_id | get_url | domain }}{% endif %}</span></a>
+
 
 	<span style="float:right;width: 25%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: block;">
 		<a rel="noopener" class="u-url u-uid note-permalink l" href="{{ obj | url_or_id | get_url }}">
@@ -131,7 +133,7 @@
     {% elif obj | has_type('Question') %}
         {{ obj.content | update_inline_imgs | clean | replace_custom_emojis(obj) | code_highlight | safe }}
 
-        
+
         <ul style="list-style:none;padding:0;">
         {% set total_votes = obj | get_total_answers_count(meta) %}
         {% for oneOf in obj.oneOf %}
@@ -158,7 +160,7 @@
             </li>
         {% endfor %}
         {% if obj.anyOf %}
-        
+
         {% for anyOf in obj.anyOf %}
             {% set pct = 0 %}
             {% if total_votes > 0 %}
@@ -176,7 +178,7 @@
 <button type="submit" class="bar-item">vote</button>
     </form></span>
     {% elif session.logged_in and already_voted and not (real_end_time | gtnow) %}
-    <span style="position:relative;top:5px;height:10px;width:50px;display:inline-block;"></span>
+    <span style="position:relative;top:5px;height:10px;width:50px;height:50px;display:inline-block;"></span>
     {% endif %}
         <span class="answer-bar color-menu-background" style="width:{{pct}}%;"></span>
                 <span class="answer-text">
@@ -267,7 +269,7 @@
 <a href="{{ og.url }}" class="og-link" style="margin:30px 0;clear:both;display: flex;">
 {% if og.image | get_og_image_url %}
 <div style="padding:0 20px 0 0;">
-<img  style="width:100px;border-radius:3px;" src="{{ og.image | get_og_image_url }}">
+<img  style="width:100px;" src="{{ og.image | get_og_image_url }}">
 </div>
 {% endif %}
 <div>
@@ -417,7 +419,7 @@
 
 
 </div>
-</div>                       
+</div>
 </article>
 
 
@@ -426,12 +428,12 @@
 {% macro display_thread(thread, likes=[], shares=[]) -%}
 {% for reply in thread %}
 {% if reply._requested %}
-<div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+<div style="font-size:0.8em;padding-bottom:0px;margin-bottom:5px;display:inline-block;background-color:inherit;">
 {{ display_in_reply_to(reply.meta, reply.activity.object) }}
 </div>
 {{ display_note(reply.activity.object, perma=True, likes=likes, shares=shares, meta=reply.meta) }}
 {% else %}
-<div style="margin-left:70px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+<div style="font-size:0.8em;padding-bottom:0px;margin-bottom:5px;display:inline-block;background-color:inherit;">
 {{ display_in_reply_to(reply.meta, reply.activity.object) }}
 </div>
 {{ display_note(reply.activity.object, perma=False, meta=reply.meta) }}
