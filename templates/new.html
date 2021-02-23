@@ -8,7 +8,7 @@
 <div id="container">
 <div id="new">
 {% if thread %}
-<h3 style="padding-bottom: 30px">Replying to {{ content }}</h3>
+<h3>Replying to {{ content }}</h3>
 {{ utils.display_thread(thread) }}
 {% else %}
 <div class="tabbar">
@@ -22,7 +22,7 @@
 <form id="new-activity" action="/api/new_{% if request.args.get("question") == "1" %}question{%else%}note{%endif%}" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="redirect" value="/">
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-<select name="visibility" style="padding:8px 10px;">
+<select name="visibility">
 {% for v in visibility %}
 <option value="{{v.name}}" {% if v == default_visibility %}selected="selected"{% endif %}>{{ v.value }}</option>
 {% endfor %}
@@ -40,7 +40,7 @@
 {% endfor %}
 </p>
 
-<textarea name="content" rows="10" cols="50" autofocus="autofocus" designMode="on" style="font-size:1.2em;width:95%;">{{ content }}</textarea>
+<textarea name="content" rows="10" cols="50" autofocus="autofocus" designMode="on">{{ content }}</textarea>
 
 <p>
 <input type="file" name="file">
@@ -59,7 +59,7 @@
 </p>
 
 {% if request.args.get("question") == "1" %}
-<div style="margin-top:20px;">
+<div>
     <p>Open for: <select name="open_for">
     <option value="5">5 minutes</option>
     <option value="10">10 minutes</option>

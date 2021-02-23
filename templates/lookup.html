@@ -3,7 +3,7 @@
 {% block title %}Lookup - {{ config.NAME }}{% endblock %}
 {% block content %}
 <div id="container">
-<div style="margin-top:50px;">
+<div>
 
 <p>Interact with an ActivityPub object via its URL or look for a user using <i>@user@domain.tld</i></p>
 
@@ -14,9 +14,9 @@
 
 {% if data %}
 {% set data = data.to_dict() %}
-<div id="lookup-result" style="margin-top:30px;">
+<div id="lookup-result">
     {% if data | has_actor_type %}
-<div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;">
+<div>
 {% if following %}
 <a class="bar-item" href="/admin/profile?actor_id={{data.id}}">profile</a>
 <form action="/api/undo" class="action-form"  method="post">
@@ -51,8 +51,8 @@
 	{{ utils.display_note(data, meta=meta) }}
     {% elif data | has_type('Announce') %}
     {% set boost_actor = meta.actor %}
-        <p style="margin-left:0px;padding-bottom:0px;">
-        <span class="bar-item-no-hover"><a style="color:#808080;" href="{{ boost_actor.url | get_url }}">{{ boost_actor.name }}</a> boosted</span>
+        <p>
+        <span class="bar-item-no-hover"><a>{{ boost_actor.name }}</a> boosted</span>
         </p>
         {{ utils.display_note(meta.object, meta=meta) }}
 

@@ -11,7 +11,7 @@
 	{% for (follow_id, meta) in following_data %}
     {% set follow = meta.object %}
     {% if session.logged_in %}
-<div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;">
+<div>
 <a class="bar-item" href="/admin/profile?actor_id={{follow.id}}">profile</a>
 <form action="/api/undo" class="action-form"  method="post">
 <input type="hidden" name="redirect" value="{{ request.path }}"/>
@@ -28,7 +28,7 @@
 <input type="hidden" name="redirect" value="{{ request.path }}"/>
 <input type="hidden" name="actor_id" value="{{ follow.id }}"/>
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-<select name="list_name" style="float:left;">
+<select name="list_name">
 <option></option>
 {% for l in lists %}
 {% if follow.id not in l.members %}
@@ -57,7 +57,7 @@
         </div>
 
     {% endif %}
-    <div style="height: 100px;">
+    <div>
 	{{ utils.display_actor_inline(follow, size=80) }}
     </div>
 	{% endfor %}

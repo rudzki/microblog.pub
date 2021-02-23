@@ -10,12 +10,12 @@
 {% endif %}
 
 {% if request.path == url_for('admin.admin_notifications') and unread_notifications_count %}
-<div style="clear:both;padding-bottom:60px;">
+<div class="notification-box">
 <form action="/api/mark_notifications_as_read" method="POST">
 <input type="hidden" name="redirect" value="{{ request.path }}"/>
 <input type="hidden" name="nid" value="{{ nid }}"/>
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-<button type="submit" class="bar-item" style="text-transform:uppercase">Mark as read</button>
+<button type="submit" class="bar-item">Mark as read</button>
 </form>
 </div>
 {% endif %}
@@ -23,8 +23,8 @@
 {% if actor %}
 {% set actor_redir = request.path + "?actor_id=" + request.args.get('actor_id') %}
 
-<div id="profile" style="margin-bottom:80px;">
-<div style="clear:both;margin-left:0px;margin-bottom:10px;margin-top:10px;display:inline-block;">
+<div id="profile">
+<div class="profile-box">
     {% if follower %}<span class="bar-item-no-hover">follows you!</span>{% endif %}
 
 {% if following %}
@@ -47,7 +47,7 @@
 <input type="hidden" name="redirect" value="{{ actor_redir }}"/>
 <input type="hidden" name="actor_id" value="{{ actor.id }}"/>
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-<select name="list_name" style="float:left;">
+<select name="list_name">
 <option></option>
 {% for l in lists %}
 {% if actor.id not in l.members %}
@@ -93,22 +93,22 @@
 {% endif %}
 </div>
 
-<a class="actor-box" href="{{actor | url_or_id | get_url }}" style="clear:both;">
-<span style="float:left;padding-right:15px;">
+<a class="actor-box" href="{{actor | url_or_id | get_url }}">
+<span>
 {% if not actor.icon %}
-<img class="actor-icon" src="/static/nopic.png" style="width:80px">
+<img class="actor-icon" src="/static/nopic.png">
 {% else %}
-<img class="actor-icon" src="{{ actor.icon.url | get_actor_icon_url(80) }}" style="width:80px;">{% endif %}
+<img class="actor-icon" src="{{ actor.icon.url | get_actor_icon_url(80) }}">{% endif %}
 </span>
 <div class="actor-inline">
-<div style="font-weight:bold">{{ (actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</div>
-<small class="lcolor">@{{ actor.preferredUsername }}@{{ actor | url_or_id | get_url | domain }}</small>
-{% if actor.manuallyApprovesFollowers %}<p><small>Manually approves followers</small></p>{% endif %}
+<div class="actor-name">{{ (actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</div>
+<span class="lcolor">@{{ actor.preferredUsername }}@{{ actor | url_or_id | get_url | domain }}</span>
+{% if actor.manuallyApprovesFollowers %}<p>Manually approves followers</p>{% endif %}
 </div>
 </a>
 
 {% if actor.summary %}
-<div style="margin-top:70px;margin-bottom:20px;">
+<div class="actor-summary-box">
     {{ actor.summary | clean | replace_custom_emojis(actor) | safe }}
 </div>
 {% endif %}
@@ -126,11 +126,11 @@
 
 {% endif %}
 
-<div id="notes" style="clear:both;">
+<div id="notes">
 	{% for item in inbox_data %}
 	{% if 'actor' in item.meta %}
 	{% if item | has_type('Create') %}
-    <div style="margin-left:0px;margin-bottom:10px;margin-top:10px;display:inline-block;">
+    <div class="ack-reply-box">
     {% if request.path.startswith("/admin/notifications") and not item.meta.reply_acked and item.meta.object_visibility | visibility_is_public %}
     <form action="/api/ack_reply" class="action-form"  method="POST">
     <input type="hidden" name="redirect" value="{{ request.path }}"/>
@@ -147,7 +147,7 @@
 	{% if item | has_type('Announce') %}
 	{% set boost_actor = item.meta.actor %}
     {% if boost_actor %}
-    <div style="margin-left:0px;margin-bottom:10px;margin-top:10px;display:inline-block;">
+    <div class="boost-actor-box">
     {{ utils.display_actor_box(boost_actor, after="boosted") }}
     {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
 
@@ -166,7 +166,7 @@
 
     {% if item | has_type('Like') %}
     {% set boost_actor = item.meta.actor %}
-    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
+    <div class="meta-actor-box">
     {{ utils.display_actor_box(boost_actor, after="liked") }}
     {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
@@ -178,7 +178,7 @@
     {% endif %}
 
 	{% if item | has_type('Follow') %}
-    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
+    <div class="follow-box">
     <span class="bar-item-no-hover">new follower</span>
     <span class="bar-item-no-hover">{{ item.meta.follow_status }}</span>
     {% if config.MANUALLY_APPROVES_FOLLOWERS and item.meta.follow_status != "accepted"  %}
@@ -202,12 +202,12 @@
     </form>
     {% endif %}
     </div>
-    <div style="height: 100px;">
+    <div class="display-actor-box">
 	{{ utils.display_actor_inline(item.meta.actor, size=50) }}
     </div>
 
 	{% elif item | has_type('Accept') %}
-    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
+    <div class="accept-box">
     <span class="bar-item-no-hover">you started following</span>
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
     <span class="bar-item-no-bg">{{ (item.activity.published or item.meta.published) | format_timeago }}</span>
@@ -215,12 +215,12 @@
     {% if item.meta.notification_follows_back %}<span class="bar-item-no-hover">follows you back</span>{% endif %}
     </div>
 
-    <div style="height: 100px;">
+    <div class="display-actor-box">
 	{{ utils.display_actor_inline(item.meta.actor, size=50) }}
     </div>
 
 	{% elif item | has_type('Reject') %}
-    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
+    <div class="reject-box">
     <span class="bar-item-no-hover">rejected your follow request</span>
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
     <span class="bar-item-no-bg">{{ (item.activity.published or item.meta.published) | format_timeago }}</span>
@@ -228,17 +228,17 @@
     {% if item.meta.notification_follows_back %}<span class="bar-item-no-hover">follows you</span>{% endif %}
     </div>
 
-    <div style="height: 100px;">
+    <div class="display-actor-box">
 	{{ utils.display_actor_inline(item.meta.actor, size=50) }}
     </div>
 
 	{% elif item | has_type('Undo') %}
-    <div style="margin-left:0px;padding-bottom:0px;margin-bottom:10px;display:inline-block;font-size:80%;">
+    <div class="undo-box">
     <span class="bar-item-no-hover">unfollowed you</span>
     {% if item.meta.notification_unread %}<span class="bar-item-no-bg"><span class="pcolor">new</span></span>{% endif %}
     <span class="bar-item-no-bg">{{ (item.activity.published or item.meta.published) | format_timeago }}</span>
     </div>
-    <div style="height: 100px;">
+    <div class="display-actor-box">
 	{{ utils.display_actor_inline(item.meta.actor, size=50) }}
     </div>
 
@@ -251,7 +251,7 @@
     {% else %}
 
     {% if item | has_type('question_ended') %}
-    <p style="margin-left:0px;padding-bottom:0px;display:inline-block;"><span class="bar-item-no-hover">poll ended</span></p>
+    <p>poll ended</span></p>
     {{ utils.display_note(item.activity, meta={"object_visibility": "PUBLIC"}) }}
     {% endif %}
 

@@ -23,7 +23,7 @@
 <main id="notes">
 	{% for item in pinned %}
     {% if item.meta.pinned %}
-    <p style="margin-left:0;padding-bottom:5px;">
+    <p>
     <span class="bar-item-pinned">pinned</span>
     </p>
     {% endif %}
@@ -37,7 +37,7 @@
 	{% if "actor" in item.meta %}
         {% set boost_actor = item.meta.actor %}
         {% if session.logged_in %}
-        <div style="margin-left:0px;padding-bottom:5px;margin-bottom:15px;display:inline-block">
+        <div>
 <form action="/api/undo" class="action-form"  method="POST">
 <input type="hidden" name="redirect" value="/"/>
 <input type="hidden" name="id" value="{{ item.remote_id }}"/>
@@ -48,7 +48,7 @@
         {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
         </div>
         {% else %}
-        <p style="margin-left:0px;padding-bottom:5px;display:inline-block;">
+        <p>
         {{ utils.display_actor_box(boost_actor, after="boosted") }}
         {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
         </p>
@@ -59,7 +59,7 @@
         {% endif %}
 	{% elif item | has_type('Create') %}
         {% if item.activity.object.inReplyTo %}
-        <p style="margin-left:0px;padding-bottom:5px;display:inline-block;">
+        <p>
         {{ utils.display_in_reply_to(item.meta, item.activity.object) }}
         </p>
         {% endif %}

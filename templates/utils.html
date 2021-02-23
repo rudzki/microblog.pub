@@ -1,14 +1,14 @@
 {% macro display_actor_inline(follower, size=50) -%}
 {% if follower and follower.id %}
-<a class="actor-box" href="{{follower | url_or_id | get_url }}" style="clear:both;">
-<span style="float:left;padding-right:15px;">
+<a class="actor-box" href="{{follower | url_or_id | get_url }}">
+<span>
 {% if not follower.icon %}
-<img class="actor-icon" src="/static/nopic.png" style="width:{{ size }}px">
+<img class="actor-icon" src="/static/nopic.png">
 {% else %}
-<img class="actor-icon" src="{{ follower.icon.url | get_actor_icon_url(size) }}" style="width:{{ size }}px;">{% endif %}
+<img class="actor-icon" src="{{ follower.icon.url | get_actor_icon_url(size) }}">{% endif %}
 </span>
 <div class="actor-inline">
-<div style="font-weight:bold">{{ (follower.name or follower.preferredUsername) | clean | replace_custom_emojis(follower) | safe }}</div>
+<div>{{ (follower.name or follower.preferredUsername) | clean | replace_custom_emojis(follower) | safe }}</div>
 <small class="lcolor">@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}</small>
 </div>
 </a>
@@ -17,11 +17,11 @@
 
 {% macro display_actor_icon(follower, size=50) -%}
 {% if follower and follower.id %}
-<a href="{{follower | url_or_id | get_url }}" style="width:65px;padding-left:15px;padding-bottom:10px;text-decoration:none;padding:0;margin:0;height:65px;">
+<a href="{{follower | url_or_id | get_url }}">
 {% if not follower.icon %}
-<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="/static/nopic.png" style="width:{{ size }}px;margin:0;padding:0">
+<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="/static/nopic.png">
 {% else %}
-<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="{{ follower.icon.url | get_actor_icon_url(size) }}" style="width:{{ size }}px;">{% endif %}
+<img class="actor-icon" title="@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}" src="{{ follower.icon.url | get_actor_icon_url(size) }}">{% endif %}
 </a>
 {% endif %}
 {%- endmacro %}
@@ -29,7 +29,7 @@
 {% macro display_actor_oneline(follower) -%}
 {% if follower and follower.id %}
 <span class="actor-inline">
-<a href="{{follower | url_or_id | get_url }}" style="clear:both;">
+<a href="{{follower | url_or_id | get_url }}">
 {{ (follower.name or follower.preferredUsername) | clean | replace_custom_emojis(follower) | safe }}
 <small class="lcolor">@{{ follower.preferredUsername }}@{{ follower | url_or_id | get_url | domain }}</small>
 </a>
@@ -45,19 +45,19 @@
 {% set icon_url = actor.icon.url | get_actor_icon_url(50) %}
 {% endif %}
 
-        <span class="bar-item-no-hover" style="padding: 0;">
-            <span style="font-size:80%;display:flex;height:25px;line-height:25px;background: url('{{ icon_url }}') no-repeat;background-size:25px;">
+        <span class="bar-item-no-hover">
+            <span>
                 {% if before and before_url %}
-                <span style="flex-shrink:1; padding:0 10px 0 40px;"><a href="{{before_url}}">{{before}}</a></span>
-                <span style="flex-shrink:1;padding-right:10px;">
-                <a style="color:#808080;" href="{{ actor.url | get_url }}">{{ ( actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</a>
+                <span>{{before}}</a></span>
+                <span>
+                <a>{{ ( actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</a>
                 </span>
                 {% endif %}
                 {% if after %}
-                <span style="flex-shrink:1;padding-left:40px;">
-                <a style="color:#808080;" href="{{ actor.url | get_url }}">{{ ( actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</a>
+                <span>
+                <a>{{ ( actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</a>
                 </span>
-                <span style="flex-shrink:1;padding:0 5px;">{{ after }}</span>
+                <span>{{ after }}</span>
                 {% endif %}
             </span>
         </span>
@@ -106,14 +106,14 @@
 </div>
 
 <div class="note-wrapper">
-    <aside style="clear:both;height:20px;">
+    <aside>
 
-	<a href="{{ actor | url_or_id | get_url }}" style="margin:0;text-decoration:none;margin: 0;text-decoration: none;display: block;width: 75%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: left;" class="no-hover">
+	<a href="{{ actor | url_or_id | get_url }}">
         <strong>{{ (actor.name or actor.preferredUsername) | clean | replace_custom_emojis(actor) | safe }}</strong>
         <span class="l">@{% if not no_color and obj.id | is_from_outbox %}<span class="pcolor">{{ actor.preferredUsername | clean | replace_custom_emojis(actor) | safe }}</span>{% else %}{{ actor.preferredUsername | clean | replace_custom_emojis(actor) | safe }}{% endif %}@{% if not no_color and obj.id | is_from_outbox %}<span class="pcolor">{{ actor | url_or_id | get_url | domain }}</span>{% else %}{{ actor | url_or_id | get_url | domain }}{% endif %}</span></a>
 
 
-	<span style="float:right;width: 25%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: block;">
+	<span>
 		<a rel="noopener" class="u-url u-uid note-permalink l" href="{{ obj | url_or_id | get_url }}">
             <time class="dt-published" title="{{ obj.published }}" datetime="{{ obj.published }}" {% if obj | url_or_id | get_url | is_from_outbox %}{%else%}rel="external noreferrer"{%endif%}>{{ obj.published | format_timeago }}</time></a>
 	</span>
@@ -134,7 +134,7 @@
         {{ obj.content | update_inline_imgs | clean | replace_custom_emojis(obj) | code_highlight | safe }}
 
 
-        <ul style="list-style:none;padding:0;">
+        <ul>
         {% set total_votes = obj | get_total_answers_count(meta) %}
         {% for oneOf in obj.oneOf %}
             {% set pct = 0 %}
@@ -152,7 +152,7 @@
 <button type="submit" class="bar-item">vote</button>
     </form></span>{% endif %}
 
-                <span class="answer-bar color-menu-background" style="width:{{pct}}%;"></span>
+                <span class="answer-bar color-menu-background"></span>
                 <span class="answer-text">
                     <span>{{ '%0.0f'| format(pct) }}%</span>
                     {{ oneOf.name }} {% if oneOf.name | poll_answer_key in meta.poll_answers_sent %}(your vote){% endif %}
@@ -178,9 +178,9 @@
 <button type="submit" class="bar-item">vote</button>
     </form></span>
     {% elif session.logged_in and already_voted and not (real_end_time | gtnow) %}
-    <span style="position:relative;top:5px;height:10px;width:50px;height:50px;display:inline-block;"></span>
+    <span></span>
     {% endif %}
-        <span class="answer-bar color-menu-background" style="width:{{pct}}%;"></span>
+        <span class="answer-bar color-menu-background"></span>
                 <span class="answer-text">
                     <span>{{ '%0.0f'| format(pct) }}%</span>
                     {{ anyOf.name }} {% if anyOf.name | poll_answer_key in meta.poll_answers_sent %}(your vote){% endif %}
@@ -210,11 +210,11 @@
 	</div>
 
 	{% if obj.attachment and obj | has_type('Note') %}
-	<div style="padding:20px 0;">
+	<div class="attach">
 
  {% if obj.sensitive and not request.args.get("show_sensitive") == perma_id %}
- <div style="clear:both">
- <form action="{{redir}}" class="action-form"  method="GET" style="display:inline-block">
+ <div>
+ <form action="{{redir}}" class="action-form"  method="GET">
 <input type="hidden" name="show_sensitive" value="{{perma_id}}">
 {% for k, v in request.args.items() %}
 <input type="hidden" name="{{k}}" value="{{v}}">
@@ -225,8 +225,8 @@
  {% else %}
 
  {% if obj.sensitive %}
- <div style="clear:both;margin-bottom: 20px;">
- <form action="{{redir}}" class="action-form"  method="GET" style="display:inline-block">
+ <div>
+ <form action="{{redir}}" class="action-form"  method="GET">
 {% for k, v in request.args.items() %}
 {% if k != "show_sensitive" %}
 <input type="hidden" name="{{k}}" value="{{v}}">
@@ -238,8 +238,8 @@
  {% endif %}
 
 	{% if obj.attachment | not_only_imgs %}
-	<h3 class="l">Attachments</h3>
-	<ul style="padding:0;list-style-type: none;">
+	<!--<h3 class="l">Attachments</h3>-->
+	<ul>
 	{% endif %}
 	{% for a in (obj | iter_note_attachments) %}
     {% if (a.mediaType and a.mediaType.startswith("image/")) or (a.type and a.type == 'Image') %}
@@ -248,7 +248,7 @@
     {% elif (a.mediaType and a.mediaType.startswith("video/")) %}
     <li><video controls preload="metadata"  src="{{ a.url | get_attachment_url(None) }}" title="{{ a.name }}" width="480"></video></li>
     {% elif (a.mediaType and a.mediaType.startswith("audio/")) %}
-    <li><audio controls preload="metadata"  src="{{ a.url | get_attachment_url(None) }}" title="{{ a.name }}" style="width:480px;"></audio></li>
+    <li><audio controls preload="metadata"  src="{{ a.url | get_attachment_url(None) }}" title="{{ a.name }}"></audio></li>
 	{% else %}
 	<li><a href="{{a.url }}" class="l">{% if a.filename %}{{ a.filename }}{% else %}{{ a.url }}{% endif %}</a></li>
 	{% endif  %}
@@ -266,10 +266,10 @@
 {% if meta and meta.og_metadata and obj | has_type('Note') %}
 {% for og in meta.og_metadata %}
 {% if og.url %}
-<a href="{{ og.url }}" class="og-link" style="margin:30px 0;clear:both;display: flex;">
+<a href="{{ og.url }}" class="og-link">
 {% if og.image | get_og_image_url %}
-<div style="padding:0 20px 0 0;">
-<img  style="width:100px;" src="{{ og.image | get_og_image_url }}">
+<div>
+<img >
 </div>
 {% endif %}
 <div>
@@ -397,18 +397,18 @@
 </aside>
 
 {% if likes or shares %}
-<aside style="padding-top:20px;">
+<aside>
 {% if likes %}
-    <h4 style="font-weight:normal"><strong>{{ likes|length }}</strong> like{% if (likes | length) > 1 %}s{% endif %}</h4>
-<div style="display:flex;flex-wrap:wrap;">
+    <h4><strong>{{ likes|length }}</strong> like{% if (likes | length) > 1 %}s{% endif %}</h4>
+<div>
 {% for like in likes %}
 {{ display_actor_icon(like) }}
 {% endfor %}
 </div>
 {% endif %}
 {% if shares %}
-<h4 style="font-weight:normal"><strong>{{ shares|length }}</strong> boost{% if (shares|length) > 1 %}s{% endif %}</h4>
-<div style="display:flex;flex-wrap:wrap;">
+<h4><strong>{{ shares|length }}</strong> boost{% if (shares|length) > 1 %}s{% endif %}</h4>
+<div>
 {% for boost in shares %}
 {{ display_actor_icon(boost) }}
 {% endfor %}
@@ -428,12 +428,12 @@
 {% macro display_thread(thread, likes=[], shares=[]) -%}
 {% for reply in thread %}
 {% if reply._requested %}
-<div style="font-size:0.8em;padding-bottom:0px;margin-bottom:5px;display:inline-block;background-color:inherit;">
+<div>
 {{ display_in_reply_to(reply.meta, reply.activity.object) }}
 </div>
 {{ display_note(reply.activity.object, perma=True, likes=likes, shares=shares, meta=reply.meta) }}
 {% else %}
-<div style="font-size:0.8em;padding-bottom:0px;margin-bottom:5px;display:inline-block;background-color:inherit;">
+<div>
 {{ display_in_reply_to(reply.meta, reply.activity.object) }}
 </div>
 {{ display_note(reply.activity.object, perma=False, meta=reply.meta) }}

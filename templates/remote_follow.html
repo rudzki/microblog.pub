@@ -6,7 +6,7 @@
 <div id="container">
 {% include "header.html" %}
 <main>
-<h2 style="font-weight:normal">Remote follow @<span class="gold">{{ config.USERNAME }}</span>@<span class="gold">{{ config.DOMAIN }}</span></h2>
+<h2>{{ config.DOMAIN }}</span></h2>
 
 <form method="POST" action="">
 	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>

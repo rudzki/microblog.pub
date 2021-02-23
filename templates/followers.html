@@ -12,7 +12,7 @@
 	{% for meta in followers_data %}
     {% set follower = meta.actor %}
     {% if session.logged_in %}
-<div style="margin-left:0px;padding-bottom:5px;margin-bottom:15px;display:inline-block;">
+<div>
 <a class="bar-item" href="/admin/profile?actor_id={{follower.id}}">profile</a>
 
 {% if meta.notification_follows_back %}
@@ -21,7 +21,7 @@
 
 </div>
     {% endif %}
-    <div style="height: 100px;">
+    <div>
 	{{ utils.display_actor_inline(follower, size=80) }}
     </div>
 	{% endfor %}

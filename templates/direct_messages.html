@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 <div id="container">
-<div id="direct_messages" style="margin-top:50px;">
+<div id="direct_messages">
 
     {% for thread in threads %}
     <h4><a class="lcolor" href="/admin/thread?oid={{thread.oid}}">With {{ ", ".join(thread.participants) }}</a>

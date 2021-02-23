@@ -3,17 +3,17 @@
 {% block header %}
 {% endblock %}
 {% block content %}
-<div style="width:90%;max-width: 720px;margin:40px auto;">
+<div>
 
-<div style="display:flex">
+<div>
 {% if client.logo %}
-<div style="flex:initial;width:100px;">
-<img src="{{client.logo}}" style="max-width:100px;">
+<div>
+<img src="{{client.logo}}">
 </div>
 {% endif %}
-<div style="flex:1;">
-<div style="margin-top:20px">
-<a class="lcolor" style="font-size:1.2em;font-weight:600;text-decoration:none;" href="{{ client.url }}">{{ client.name }}</a>
+<div>
+<div>
+<a class="lcolor">{{ client.name }}</a>
 <p>wants you to login as <strong class="lcolor">{{ me }}</strong></p>
 </div>
 </div>
