@@ -371,10 +371,10 @@ small {
 
   .bar-item-pinned {
       cursor: default;
-      background: #BBB;
-      color: #222;
-      padding: 0;
+      color: #74868a;
       margin-right: 10px;
+      font-size: 16px;
+      margin-left: 65px;
   }
 
   .bar-item-pinned:hover {
@@ -463,12 +463,12 @@ small {
   }
 
   .summary a {
-      color: #ddd;
+      color: #5D636E;
       text-decoration:underline;
   }
 
   .summary a:hover {
-    color: #fcfcfc;
+    color: #ACB2BE;
   }
 
   .profile-picture {
@@ -1076,7 +1076,7 @@ ul, li {
   margin-bottom: 0.5em;
   margin-top: 0px;
   font-size:16px !important;
-  color: #ACB2BE;
+  color: #74868a;
 }
 
 .boost-actor-box .bar-item-no-hover {
@@ -1088,10 +1088,10 @@ ul, li {
 
 
 .boost-actor-box a {
-  color: #ACB2BE !important;
+  color: #74868a !important;
 }
 .boost-actor-box a:hover {
-  color: #ddd !important;
+  color: #ACB2BE !important;
 }
 
 .actor-action {

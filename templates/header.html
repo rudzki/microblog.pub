@@ -8,10 +8,9 @@
 </a>
 
 <a href="{{ config.ID }}" class="u-url u-uid no-hover title">
-
-	<span class="display_name">{{ config.NAME }}</span>
-	<span>{{ config.DOMAIN }}</span>
-
+<span class="identity-header">
+	<span class="display_name">{{ config.NAME }}</span> @<span class="username_header">{{ config.USERNAME }}@<span class="instance_domain">{{ config.DOMAIN }}</span>
+</span>
         {% if not session.logged_in %}
 					<small><a class="remote-follow-button" href="/remote_follow">Follow</a></small>
 				{% endif %}
