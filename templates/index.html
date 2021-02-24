@@ -37,12 +37,12 @@
 	{% if "actor" in item.meta %}
         {% set boost_actor = item.meta.actor %}
         {% if session.logged_in %}
-        <div>
+        <div class="boost-actor-box">
 <form action="/api/undo" class="action-form"  method="POST">
 <input type="hidden" name="redirect" value="/"/>
 <input type="hidden" name="id" value="{{ item.remote_id }}"/>
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-<button type="submit" class="bar-item boost-label">unboost</button>
+<button type="submit" class="bar-item unboost">unboost</button>
 </form>
         {{ utils.display_actor_box(boost_actor, after="boosted") }}
         {{ utils.display_in_reply_to(item.meta, item.activity.object) }}

@@ -2,10 +2,19 @@
 
 <div class="h-card p-author">
 <data class="u-photo" value="{{ config.ME.icon.url }}"></data>
+
+<a href="{{ config.ID }}">
+	<img width="100" height="100" class="profile-picture" src="{{ config.ME.icon.url }}">
+</a>
+
 <a href="{{ config.ID }}" class="u-url u-uid no-hover title">
+
 	<span class="display_name">{{ config.NAME }}</span>
 	<span>{{ config.DOMAIN }}</span>
-        {% if not session.logged_in %}<small><a class="remote-follow-button" href="/remote_follow">Remote follow</a></small>{% endif %}
+
+        {% if not session.logged_in %}
+					<small><a class="remote-follow-button" href="/remote_follow">Follow</a></small>
+				{% endif %}
 </a>
 
 <div class="p-note summary">
@@ -26,8 +35,14 @@
 
 <div class="menu">
 <ul>
+
+{% if session.logged_in %}
+<li><a href="/all" {% if request.path == url_for("all") %}class="selected"{% endif %}>All <small class="badge">{{ with_replies_count }}</small></a></li>
+{% endif %}
+
 <li><a href="/" {% if request.path == "/" %}class="selected"{% endif %}>Notes <small class="badge">{{ notes_count }}</small></a></li>
-{% if session.logged_in %}<li><a href="/all" {% if request.path == url_for("all") %}class="selected"{% endif %}>All <small class="badge">{{ with_replies_count }}</small></a></li>
+
+{% if session.logged_in %}
 <li><a href="/liked" {% if request.path == "/liked" %}class="selected"{% endif %}>Liked <small class="badge">{{ liked_count }}</small></a></li>
 {% endif %}
 
